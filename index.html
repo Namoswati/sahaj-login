@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sahaj Dukaan Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#f5d6e6,#fff7fb);
+}
+
+.container{
+width:380px;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.logo{
+text-align:center;
+font-size:28px;
+font-weight:600;
+color:#b76e79;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:30px;
+}
+
+.input-box{
+margin-bottom:20px;
+}
+
+.input-box input{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+outline:none;
+transition:0.3s;
+}
+
+.input-box input:focus{
+border-color:#b76e79;
+}
+
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#b76e79;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+margin-top:10px;
+}
+
+.btn:hover{
+background:#9d5b65;
+}
+
+.switch{
+text-align:center;
+margin-top:20px;
+font-size:14px;
+}
+
+.switch span{
+color:#b76e79;
+cursor:pointer;
+font-weight:600;
+}
+
+.message{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+color:green;
+}
+
+.error{
+color:red;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">Sahaj Dukaan</div>
+
+<div class="subtitle">
+Jewellery Login Portal
+</div>
+
+<div class="input-box">
+<input type="email" id="email" placeholder="Enter Email">
+</div>
+
+<div class="input-box">
+<input type="password" id="password" placeholder="Enter Password">
+</div>
+
+<button class="btn" onclick="signup()">
+Create Account
+</button>
+
+<button class="btn" onclick="login()">
+Login
+</button>
+
+<div class="switch">
+Logged in users can access their account securely.
+</div>
+
+<div id="message" class="message"></div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyDeSXzwYgEM551cvi4lYgzxiHwXyNetDUI",
+authDomain: "sahaj-dukaan-login-790db.firebaseapp.com",
+projectId: "sahaj-dukaan-login-790db",
+storageBucket: "sahaj-dukaan-login-790db.firebasestorage.app",
+messagingSenderId: "311850258244",
+appId: "1:311850258244:web:889751526348f1fbd41111"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const message = document.getElementById("message");
+
+window.signup = function(){
+
+const email = document.getElementById("email").value;
+
+const password = document.getElementById("password").value;
+
+createUserWithEmailAndPassword(auth,email,password)
+
+.then((userCredential)=>{
+
+message.innerHTML="Account Created Successfully";
+
+message.classList.remove("error");
+
+})
+
+.catch((error)=>{
+
+message.innerHTML=error.message;
+
+message.classList.add("error");
+
+});
+
+}
+
+window.login = function(){
+
+const email = document.getElementById("email").value;
+
+const password = document.getElementById("password").value;
+
+signInWithEmailAndPassword(auth,email,password)
+
+.then((userCredential)=>{
+
+message.innerHTML="Login Successful";
+
+message.classList.remove("error");
+
+window.location.href="https://www.sahajdukaan.com";
+
+})
+
+.catch((error)=>{
+
+message.innerHTML=error.message;
+
+message.classList.add("error");
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
